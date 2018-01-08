@@ -7,8 +7,10 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.model.Input;
 import core.model.Interview;
+import core.model.html.Input;
+import core.model.html.Select;
+import core.model.html.UIElement;
 
 public class ParserTest {
 	Parser parser;
@@ -26,11 +28,21 @@ public class ParserTest {
 
 		assertEquals(interview.getStates()[0].getName(), "initial");
 
-		assertThat(interview.getStates()[0].getUiElements()[0], instanceOf(Input.class));
+		// first ui element of first state is an html input element and its tpye
+		// is text
+		UIElement inputElement = interview.getStates()[0].getUiElements()[0];
+		assertThat(inputElement, instanceOf(Input.class));
 
-		Input inputField = (Input) interview.getStates()[0].getUiElements()[0];
-
+		Input inputField = (Input) inputElement;
 		assertEquals(inputField.getType(), "text");
+
+		// first ui element of second state is an html select element and its
+		// first option is option1
+		UIElement selectElement = interview.getStates()[1].getUiElements()[0];
+		assertThat(selectElement, instanceOf(Select.class));
+
+		Select selectField = (Select) selectElement;
+		assertEquals(selectField.getOptions().get(0).getAttrValue(), "option1");
 
 	}
 

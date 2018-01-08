@@ -1,4 +1,4 @@
-package core.model;
+package core.model.html;
 
 public class Input extends UIElement {
 	private String type;

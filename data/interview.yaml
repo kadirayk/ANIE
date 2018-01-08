@@ -4,7 +4,7 @@ states:
   transition:
     in1: out1
     in2: out2
-  uiElement:
+  uiElements:
   - '@type': Input
     name: textName
     type: text
@@ -14,6 +14,14 @@ states:
 - name: out1
   transition:
     in1.1: out1.1
+  uiElement:
+  - '@type': Select
+    name: textName
+    options:
+    - attrValue: option1
+      value: value1
+    - attrValue: option2
+      value: value2
 - name: out2
   transition:
     in2.1: out2.1

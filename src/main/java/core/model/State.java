@@ -5,6 +5,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
+import core.model.html.UIElement;
+
 public class State {
 	private String name;
 	private Map<String, String> transition;
