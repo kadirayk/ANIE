@@ -11,4 +11,13 @@ public class Input extends UIElement {
 		this.type = type;
 	}
 
+	public Input(String name, String type) {
+		super(name);
+		this.type = type;
+	}
+
+	public Input() {
+		// TODO Auto-generated constructor stub
+	}
+
 }

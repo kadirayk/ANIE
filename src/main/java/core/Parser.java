@@ -17,6 +17,7 @@ public class Parser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return interview;
 	}
 

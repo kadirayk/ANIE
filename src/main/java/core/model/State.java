@@ -2,10 +2,13 @@ package core.model;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+
 public class State {
 	private String name;
-	private UIElement[] uiElements;
 	private Map<String, String> transition;
+	private UIElement[] uiElements;
 
 	public String getName() {
 		return name;
@@ -19,14 +22,16 @@ public class State {
 		return uiElements;
 	}
 
-	public void setUiElements(UIElement[] uiElements) {
+	public void setUiElement(UIElement[] uiElements) {
 		this.uiElements = uiElements;
 	}
 
+	@JsonAnyGetter
 	public Map<String, String> getTransition() {
 		return transition;
 	}
 
+	@JsonAnySetter
 	public void setTransition(Map<String, String> transition) {
 		this.transition = transition;
 	}

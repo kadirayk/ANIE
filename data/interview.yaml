@@ -1,12 +1,16 @@
 context: Machine Learning
 states:
 - name: initial
-  input:
-    name: textInput
-    type: text
   transition:
     in1: out1
     in2: out2
+  uiElement:
+  - '@type': Input
+    name: textName
+    type: text
+  - '@type': Input
+    name: text2Name
+    type: text
 - name: out1
   transition:
     in1.1: out1.1
