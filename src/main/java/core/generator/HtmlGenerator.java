@@ -1,23 +1,24 @@
 package core.generator;
 
-import java.util.List;
-
-import core.model.State;
-import core.model.html.UIElement;
+import core.model.Interview;
+import util.FileUtil;
 
 public class HtmlGenerator {
 
-	public String generateComponent(State state) {
-		StringBuilder htmlElement = new StringBuilder();
+	public String generatePage(Interview interview) {
+		StringBuilder html = new StringBuilder();
 
-		if (state != null) {
-			List<UIElement> uiElements = state.getUiElements();
-			for (UIElement e : uiElements) {
-				htmlElement.append(e.toHTML()).append("\n");
-			}
+		if (interview != null) {
+			html.append("<html>\n");
+			html.append("<body>\n");
+			html.append(interview.ToHTML());
+			html.append("</body\n>");
+			html.append("</html>");
 		}
 
-		return htmlElement.toString();
+		FileUtil.writeToFile("data/" + interview.getContext() + ".html", html.toString());
+
+		return html.toString();
 	}
 
 }
