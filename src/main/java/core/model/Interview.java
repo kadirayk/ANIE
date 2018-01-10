@@ -23,4 +23,12 @@ public class Interview {
 		this.states = states;
 	}
 
+	public String ToHTML() {
+		StringBuilder html = new StringBuilder();
+		for (State s : states) {
+			html.append(s.toHTML()).append("\n");
+		}
+		return html.toString();
+	}
+
 }

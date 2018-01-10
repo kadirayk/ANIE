@@ -43,10 +43,11 @@ public class State {
 		StringBuilder htmlElement = new StringBuilder();
 
 		List<UIElement> uiElements = getUiElements();
-		for (UIElement e : uiElements) {
-			htmlElement.append(e.toHTML()).append("\n");
+		if (uiElements != null) {
+			for (UIElement e : uiElements) {
+				htmlElement.append(e.toHTML()).append("\n");
+			}
 		}
-
 		return htmlElement.toString();
 	}
 

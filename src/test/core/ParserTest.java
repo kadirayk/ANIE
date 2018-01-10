@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.generator.HtmlGenerator;
 import core.model.Interview;
 import core.model.html.Input;
 import core.model.html.Select;
@@ -52,6 +51,9 @@ public class ParserTest {
 		System.out.println(selectField.toHTML());
 
 		System.out.println(interview.getStates().get(0).toHTML());
+		
+		System.out.println("\n\n*********");
+		System.out.println(interview.ToHTML());
 
 	}
 
