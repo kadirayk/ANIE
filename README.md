@@ -1,1 +1,1 @@
-# ANIE
+# ANIE [![Build Status](https://travis-ci.org/kadirayk/ANIE.svg?branch=develop)](https://travis-ci.org/kadirayk/ANIE)
