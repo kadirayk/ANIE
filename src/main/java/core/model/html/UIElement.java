@@ -50,14 +50,16 @@ public abstract class UIElement {
 	public String toHTML() {
 		StringBuilder html = new StringBuilder("<");
 		html.append(tag);
-		for (String key : attributes.keySet()) {
-			html.append(" ").append(key).append("=\"").append(attributes.get(key)).append("\"");
+		if (attributes != null) {
+			for (String key : attributes.keySet()) {
+				html.append(" ").append(key).append("=\"").append(attributes.get(key)).append("\"");
+			}
 		}
 		html.append(">");
 		if (content != null) {
 			html.append(content);
 		}
-		html.append("<").append(tag).append(">");
+		html.append("</").append(tag).append(">");
 		return html.toString();
 	}
 

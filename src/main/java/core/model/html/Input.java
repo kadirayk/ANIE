@@ -9,10 +9,4 @@ public class Input extends UIElement {
 		setTag(TAG);
 	}
 
-	@Override
-	public String toHTML() {
-		StringBuilder html = new StringBuilder();
-		return html.toString();
-	}
-
 }

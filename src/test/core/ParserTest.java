@@ -46,6 +46,10 @@ public class ParserTest {
 
 		System.out.println(selectField.getOptions().get(0).toHTML());
 
+		System.out.println(inputField.toHTML());
+
+		System.out.println(selectField.toHTML());
+
 	}
 
 }

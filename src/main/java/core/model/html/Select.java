@@ -19,4 +19,23 @@ public class Select extends UIElement {
 		this.options = options;
 	}
 
+	@Override
+	public String toHTML() {
+		StringBuilder html = new StringBuilder("<");
+		html.append(getTag());
+		if (getAttributes() != null) {
+			for (String key : getAttributes().keySet()) {
+				html.append(" ").append(key).append("=\"").append(getAttributes().get(key)).append("\"");
+			}
+		}
+		html.append(">");
+		if (options != null) {
+			for (Option o : options) {
+				html.append("\n\t").append(o.toHTML());
+			}
+		}
+		html.append("\n</").append(getTag()).append(">");
+		return html.toString();
+	}
+
 }
