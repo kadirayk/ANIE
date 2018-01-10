@@ -1,6 +1,6 @@
 package core.model.html;
 
-public class Option {
+public class Option extends UIElement {
 
 	private String attrValue;
 	private String value;
@@ -19,6 +19,12 @@ public class Option {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	@Override
+	String toHTML() {
+		StringBuilder html = new StringBuilder();
+		return html.toString();
 	}
 
 }

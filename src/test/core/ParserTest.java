@@ -21,7 +21,7 @@ public class ParserTest {
 	}
 
 	@Test
-	public void ParseFile() {
+	public void parseInterview() {
 		String filePath = "data/interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 		assertEquals(interview.getContext(), "Machine Learning");
