@@ -1,5 +1,6 @@
 package core.model;
 
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -10,7 +11,7 @@ import core.model.html.UIElement;
 public class State {
 	private String name;
 	private Map<String, String> transition;
-	private UIElement[] uiElements;
+	private List<UIElement> uiElements;
 
 	public String getName() {
 		return name;
@@ -20,11 +21,11 @@ public class State {
 		this.name = name;
 	}
 
-	public UIElement[] getUiElements() {
+	public List<UIElement> getUiElements() {
 		return uiElements;
 	}
 
-	public void setUiElement(UIElement[] uiElements) {
+	public void setUiElement(List<UIElement> uiElements) {
 		this.uiElements = uiElements;
 	}
 
@@ -36,6 +37,17 @@ public class State {
 	@JsonAnySetter
 	public void setTransition(Map<String, String> transition) {
 		this.transition = transition;
+	}
+
+	public String toHTML() {
+		StringBuilder htmlElement = new StringBuilder();
+
+		List<UIElement> uiElements = getUiElements();
+		for (UIElement e : uiElements) {
+			htmlElement.append(e.toHTML()).append("\n");
+		}
+
+		return htmlElement.toString();
 	}
 
 }

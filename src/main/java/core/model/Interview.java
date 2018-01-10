@@ -1,9 +1,11 @@
 package core.model;
 
+import java.util.List;
+
 public class Interview {
 
 	private String context;
-	private State[] states;
+	private List<State> states;
 
 	public String getContext() {
 		return context;
@@ -13,11 +15,11 @@ public class Interview {
 		this.context = context;
 	}
 
-	public State[] getStates() {
+	public List<State> getStates() {
 		return states;
 	}
 
-	public void setStates(State[] states) {
+	public void setStates(List<State> states) {
 		this.states = states;
 	}
 
