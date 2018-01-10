@@ -1,1 +1,1 @@
-# ANIE [![Build Status](https://travis-ci.org/kadirayk/ANIE.svg?branch=develop)](https://travis-ci.org/kadirayk/ANIE) [![codecov](https://codecov.io/gh/kadirayk/ANIE/branch/develop/graphs/badge.svg)](https://codecov.io/gh/kadirayk/ANIE/branch/develop/graphs/badge.svg)
+# ANIE [![Build Status](https://travis-ci.org/kadirayk/ANIE.svg)](https://travis-ci.org/kadirayk/ANIE) [![codecov](https://codecov.io/gh/kadirayk/ANIE/graphs/badge.svg)](https://codecov.io/gh/kadirayk/ANIE/)
