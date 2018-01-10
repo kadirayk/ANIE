@@ -1,5 +1,7 @@
 package core.model.html;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -7,39 +9,56 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes({ @JsonSubTypes.Type(value = Input.class, name = "Input"),
-		@JsonSubTypes.Type(value = Select.class, name = "Select") })
+		@JsonSubTypes.Type(value = Select.class, name = "Select"),
+		@JsonSubTypes.Type(value = Option.class, name = "Option") })
 public abstract class UIElement {
-	private String name;
-	private final String START_TAG;
-	private final String END_TAG;
+	private String tag;
+	private String content;
+	private Map<String, String> attributes;
 
-	public String getName() {
-		return name;
+	public String getTag() {
+		return tag;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	protected void setTag(String tag) {
+		this.tag = tag;
 	}
 
-	public UIElement(String name, String startTag, String endTag) {
-		this.name = name;
-		START_TAG = startTag;
-		END_TAG = endTag;
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Map<String, String> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
+	}
+
+	public UIElement(String tag) {
+		this.tag = tag;
 	}
 
 	public UIElement() {
-		START_TAG = null;
-		END_TAG = null;
 	}
 
-	abstract String toHTML();
-
-	public String startTag() {
-		return START_TAG;
-	}
-
-	public String endTag() {
-		return END_TAG;
+	public String toHTML() {
+		StringBuilder html = new StringBuilder("<");
+		html.append(tag);
+		for (String key : attributes.keySet()) {
+			html.append(" ").append(key).append("=\"").append(attributes.get(key)).append("\"");
+		}
+		html.append(">");
+		if (content != null) {
+			html.append(content);
+		}
+		html.append("<").append(tag).append(">");
+		return html.toString();
 	}
 
 }

@@ -6,22 +6,28 @@ states:
     in2: out2
   uiElements:
   - '@type': Input
-    name: textName
-    type: text
+    attributes:
+      name: textName
+      type: text
   - '@type': Input
-    name: text2Name
-    type: text
+    attributes:
+      name: text2Name
+      type: text
 - name: out1
   transition:
     in1.1: out1.1
   uiElement:
   - '@type': Select
-    name: textName
+    name: selectName
     options:
-    - attrValue: option1
-      value: value1
-    - attrValue: option2
-      value: value2
+    - '@type': Option
+      content: value1
+      attributes:
+        value: option1
+    - '@type': Option
+      content: value2
+      attributes:
+        value: option2
 - name: out2
   transition:
     in2.1: out2.1

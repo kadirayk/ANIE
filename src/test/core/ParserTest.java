@@ -34,7 +34,7 @@ public class ParserTest {
 		assertThat(inputElement, instanceOf(Input.class));
 
 		Input inputField = (Input) inputElement;
-		assertEquals(inputField.getType(), "text");
+		assertEquals(inputField.getAttributes().get("type"), "text");
 
 		// first ui element of second state is an html select element and its
 		// first option is option1
@@ -42,7 +42,9 @@ public class ParserTest {
 		assertThat(selectElement, instanceOf(Select.class));
 
 		Select selectField = (Select) selectElement;
-		assertEquals(selectField.getOptions().get(0).getAttrValue(), "option1");
+		assertEquals(selectField.getOptions().get(0).getAttributes().get("value"), "option1");
+
+		System.out.println(selectField.getOptions().get(0).toHTML());
 
 	}
 
