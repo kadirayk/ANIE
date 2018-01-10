@@ -22,11 +22,11 @@ public class ParserTest {
 
 	@Test
 	public void parseInterview() {
-		String filePath = "data/interview.yaml";
+		String filePath = "data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 		assertEquals(interview.getContext(), "Machine Learning");
 
-		assertEquals(interview.getStates()[0].getName(), "initial");
+		assertEquals(interview.getStates()[0].getName(), "step1");
 
 		// first ui element of first state is an html input element and its tpye
 		// is text

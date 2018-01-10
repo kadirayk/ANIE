@@ -1,5 +1,7 @@
 package core.model.html;
 
+import java.util.Map;
+
 public class Option extends UIElement {
 
 	// private String attrValue;
@@ -11,6 +13,12 @@ public class Option extends UIElement {
 	 */
 	public Option() {
 		setTag(TAG);
+	}
+
+	public Option(String content, Map<String, String> attributes) {
+		setTag(TAG);
+		setContent(content);
+		setAttributes(attributes);
 	}
 
 	// public String getAttrValue() {

@@ -1,6 +1,7 @@
 package core.model.html;
 
 import java.util.List;
+import java.util.Map;
 
 public class Select extends UIElement {
 	List<Option> options;
@@ -9,6 +10,13 @@ public class Select extends UIElement {
 
 	public Select() {
 		setTag(TAG);
+	}
+
+	public Select(String content, Map<String, String> attributes, List<Option> options) {
+		setTag(TAG);
+		setContent(content);
+		setAttributes(attributes);
+		setOptions(options);
 	}
 
 	public List<Option> getOptions() {

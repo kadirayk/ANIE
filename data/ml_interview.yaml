@@ -1,9 +1,8 @@
 context: Machine Learning
 states:
-- name: initial
+- name: step1
   transition:
-    in1: out1
-    in2: out2
+    next: step2
   uiElements:
   - '@type': Input
     attributes:
@@ -13,9 +12,10 @@ states:
     attributes:
       name: text2Name
       type: text
-- name: out1
+- name: step2
   transition:
-    in1.1: out1.1
+    back: step1
+    next: step3
   uiElement:
   - '@type': Select
     attributes:
@@ -29,7 +29,7 @@ states:
       content: value2
       attributes:
         value: option2
-- name: out2
+- name: step3
   transition:
-    in2.1: out2.1
-    in2.2: out2.2
+    back: step2
+    next: step4

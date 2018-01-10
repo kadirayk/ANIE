@@ -1,5 +1,7 @@
 package core.model.html;
 
+import java.util.Map;
+
 public class Input extends UIElement {
 	// private String type;
 	// private String name;
@@ -7,6 +9,12 @@ public class Input extends UIElement {
 
 	public Input() {
 		setTag(TAG);
+	}
+
+	public Input(String content, Map<String, String> attributes) {
+		setTag(TAG);
+		setContent(content);
+		setAttributes(attributes);
 	}
 
 }
