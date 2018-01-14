@@ -45,7 +45,7 @@ public class State {
 		List<UIElement> uiElements = getUiElements();
 		if (uiElements != null) {
 			for (UIElement e : uiElements) {
-				htmlElement.append(e.toHTML()).append("\n");
+				htmlElement.append(e.toHTML()).append("<br/>").append("\n");
 			}
 		}
 		return htmlElement.toString();

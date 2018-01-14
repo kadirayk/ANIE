@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.generator.HtmlGenerator;
 import core.model.Interview;
 import core.model.html.Input;
 import core.model.html.Select;
@@ -22,7 +21,7 @@ public class ParserTest {
 	}
 
 	@Test
-	public void parseInterview() {
+	public void parseInterviewTest() {
 		String filePath = "data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 		assertEquals(interview.getContext(), "Machine Learning");
@@ -44,19 +43,6 @@ public class ParserTest {
 
 		Select selectField = (Select) selectElement;
 		assertEquals(selectField.getOptions().get(0).getAttributes().get("value"), "option1");
-
-//		System.out.println(selectField.getOptions().get(0).toHTML());
-//
-//		System.out.println(inputField.toHTML());
-//
-//		System.out.println(selectField.toHTML());
-//
-//		System.out.println(interview.getStates().get(0).toHTML());
-//
-//		System.out.println("\n\n*********");
-//		System.out.println(interview.ToHTML());
-
-		new HtmlGenerator().generatePage(interview);
 
 	}
 
