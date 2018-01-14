@@ -1,0 +1,15 @@
+context: Game
+states:
+- name: step1
+  question: Which game do you want to play?
+  transition:
+    next: step2
+  uiElements:
+  - '@type': Input
+    attributes:
+      name: gameName
+      type: text
+- name: step2
+  question: Loading game...
+  transition:
+    prev: step1

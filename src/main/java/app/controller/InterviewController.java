@@ -25,11 +25,25 @@ public class InterviewController {
 
 	@PostMapping("/init")
 	public String initSubmit(@ModelAttribute Initiator init) {
-		if (StringUtils.containsIgnoreCase(init.getContent(), "machine learning", Locale.ENGLISH)) {
+		if (StringUtils.containsIgnoreCase(init.getContent(), "machine learning", Locale.ENGLISH)
+				|| StringUtils.containsIgnoreCase(init.getContent(), " ml", Locale.ENGLISH)) {
 			String filePath = "data/ml_interview.yaml";
 			Parser parser = new Parser();
 			interview = parser.parseInterview(filePath);
 			init.setInterview(interview);
+		} else if (StringUtils.containsIgnoreCase(init.getContent(), "play a game", Locale.ENGLISH)) {
+			String filePath = "data/game_interview.yaml";
+			Parser parser = new Parser();
+			interview = parser.parseInterview(filePath);
+			init.setInterview(interview);
+
+		} else if (StringUtils.containsIgnoreCase(init.getContent(), "play", Locale.ENGLISH)) {
+			String filePath = "data/game_interview.yaml";
+			Parser parser = new Parser();
+			interview = parser.parseInterview(filePath);
+			interview.nextState();
+			init.setInterview(interview);
+
 		}
 		return "result";
 	}
