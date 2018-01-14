@@ -19,8 +19,16 @@ public class HtmlGeneratorTest {
 		String filePath = "data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 
-		new HtmlGenerator().generatePage(interview);
-		
+		new HtmlGenerator("data/").generatePage(interview);
+
+	}
+
+	@Test
+	public void testException() {
+		String filePath = "data/ml_interview.yaml";
+		Interview interview = parser.parseInterview(filePath);
+
+		new HtmlGenerator("data/nondir/").generatePage(interview);
 	}
 
 }

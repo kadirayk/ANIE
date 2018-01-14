@@ -4,6 +4,11 @@ import core.model.Interview;
 import util.FileUtil;
 
 public class HtmlGenerator {
+	private String filePath;
+
+	public HtmlGenerator(String filePath) {
+		this.filePath = filePath;
+	}
 
 	public String generatePage(Interview interview) {
 		StringBuilder html = new StringBuilder();
@@ -16,7 +21,7 @@ public class HtmlGenerator {
 			html.append("</html>");
 		}
 
-		FileUtil.writeToFile("data/" + interview.getContext() + ".html", html.toString());
+		FileUtil.writeToFile(filePath + interview.getContext() + ".html", html.toString());
 
 		return html.toString();
 	}

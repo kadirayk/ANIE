@@ -44,6 +44,8 @@ public class ParserTest {
 		Select selectField = (Select) selectElement;
 		assertEquals(selectField.getOptions().get(0).getAttributes().get("value"), "supervised");
 
+		assertEquals(selectField.getOptions().get(0).getContent(), "Supervised Learning");
+
 	}
 
 	@Test
