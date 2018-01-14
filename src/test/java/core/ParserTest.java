@@ -42,7 +42,7 @@ public class ParserTest {
 		assertThat(selectElement, instanceOf(Select.class));
 
 		Select selectField = (Select) selectElement;
-		assertEquals(selectField.getOptions().get(0).getAttributes().get("value"), "option1");
+		assertEquals(selectField.getOptions().get(0).getAttributes().get("value"), "supervised");
 
 	}
 
