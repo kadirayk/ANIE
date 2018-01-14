@@ -4,8 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Result</h1>
-	<p th:text="'content: ' + ${initiator.content}" />
-	<a href="/init">Submit another message</a>
+	<h1 th:text="${initiator.interview.context}">title</h1>
+	<div th:remove="tag" th:utext="${initiator.interviewHTML}"></div>
+
+	<br />
+	<a href="/prev">prev</a> |
+	<a href="/next">next</a>
 </body>
 </html>

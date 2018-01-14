@@ -10,6 +10,7 @@ import core.model.html.UIElement;
 
 public class State {
 	private String name;
+	private String question;
 	private Map<String, String> transition;
 	private List<UIElement> uiElements;
 
@@ -19,6 +20,14 @@ public class State {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 
 	public List<UIElement> getUiElements() {
@@ -42,10 +51,14 @@ public class State {
 	public String toHTML() {
 		StringBuilder htmlElement = new StringBuilder();
 
+		if (getQuestion() != null) {
+			htmlElement.append("<br/>").append(getQuestion()).append("<br/>");
+		}
+
 		List<UIElement> uiElements = getUiElements();
 		if (uiElements != null) {
 			for (UIElement e : uiElements) {
-				htmlElement.append(e.toHTML()).append("\n");
+				htmlElement.append(e.toHTML()).append("<br/>").append("\n");
 			}
 		}
 		return htmlElement.toString();

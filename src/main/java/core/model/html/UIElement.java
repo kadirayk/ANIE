@@ -40,10 +40,6 @@ public abstract class UIElement {
 		this.attributes = attributes;
 	}
 
-	public UIElement(String tag) {
-		this.tag = tag;
-	}
-
 	public UIElement() {
 	}
 

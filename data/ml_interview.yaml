@@ -1,35 +1,36 @@
 context: Machine Learning
 states:
 - name: step1
+  question: What is the name of your project?
   transition:
     next: step2
   uiElements:
   - '@type': Input
     attributes:
-      name: textName
-      type: text
-  - '@type': Input
-    attributes:
-      name: text2Name
+      name: projectName
       type: text
 - name: step2
+  question: What type of learning do you want to apply?
   transition:
-    back: step1
+    prev: step1
     next: step3
   uiElement:
   - '@type': Select
     attributes:
-      name: selectName
+      name: learningType
     options:
     - '@type': Option
-      content: value1
+      content: Supervised Learning
       attributes:
-        value: option1
+        value: supervised
     - '@type': Option
-      content: value2
+      content: Unsupervised Learning
       attributes:
-        value: option2
+        value: unsupervised
+    - '@type': Option
+      content: Reinforcement Learning
+      attributes:
+        value: reinforcement
 - name: step3
   transition:
-    back: step2
-    next: step4
+    prev: step2
