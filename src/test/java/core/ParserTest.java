@@ -46,4 +46,11 @@ public class ParserTest {
 
 	}
 
+	@Test
+	public void testExceptionCase() {
+		String filePath = "wrognpath";
+		Interview interview = parser.parseInterview(filePath);
+		assertEquals(null, interview);
+	}
+
 }
