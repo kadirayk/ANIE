@@ -26,24 +26,39 @@ public class ApplicationTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void aRendersForm() throws Exception {
+	public void testMachineLearningContext() throws Exception {
 		mockMvc.perform(get("/init")).andExpect(content().string(containsString("Input")));
-	}
 
-	@Test
-	public void bSubmitsForm() throws Exception {
 		mockMvc.perform(post("/init").param("content", "I want a Machine Learning system."))
 				.andExpect(content().string(containsString("Machine Learning")));
-	}
 
-	@Test
-	public void cNextOnForm() throws Exception {
+		mockMvc.perform(post("/init").param("content", "I want a ml app."))
+				.andExpect(content().string(containsString("Machine Learning")));
+
 		mockMvc.perform(get("/next")).andExpect(content().string(containsString("What type of learning")));
+
+		mockMvc.perform(get("/prev")).andExpect(content().string(containsString("What is the name of")));
+
 	}
 
 	@Test
-	public void dPrevOnForm() throws Exception {
-		mockMvc.perform(get("/prev")).andExpect(content().string(containsString("What is the name of")));
+	public void testGenericGameContext() throws Exception {
+		mockMvc.perform(get("/init")).andExpect(content().string(containsString("Input")));
+
+		mockMvc.perform(post("/init").param("content", "I want to play a game."))
+				.andExpect(content().string(containsString("Game")));
+
+		mockMvc.perform(get("/next")).andExpect(content().string(containsString("Loading game")));
+
+	}
+
+	@Test
+	public void testSpecificGameContext() throws Exception {
+		mockMvc.perform(get("/init")).andExpect(content().string(containsString("Input")));
+
+		mockMvc.perform(post("/init").param("content", "I want to play Star Craft."))
+				.andExpect(content().string(containsString("Loading game")));
+
 	}
 
 }
