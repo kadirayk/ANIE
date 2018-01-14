@@ -34,4 +34,3 @@ states:
 - name: step3
   transition:
     prev: step2
-    next: step4

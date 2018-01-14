@@ -15,19 +15,38 @@ import core.model.Interview;
 
 @Controller
 public class InterviewController {
+	Interview interview;
 
 	@GetMapping("/init")
-	public String greetingForm(Model model) {
+	public String init(Model model) {
 		model.addAttribute("initiator", new Initiator());
 		return "initiator";
 	}
 
 	@PostMapping("/init")
-	public String greetingSubmit(@ModelAttribute Initiator init) {
+	public String initSubmit(@ModelAttribute Initiator init) {
 		if (StringUtils.containsIgnoreCase(init.getContent(), "machine learning", Locale.ENGLISH)) {
 			String filePath = "data/ml_interview.yaml";
 			Parser parser = new Parser();
-			Interview interview = parser.parseInterview(filePath);
+			interview = parser.parseInterview(filePath);
+			init.setInterview(interview);
+		}
+		return "result";
+	}
+
+	@GetMapping("/next")
+	public String next(@ModelAttribute Initiator init) {
+		if (interview != null) {
+			interview.nextState();
+			init.setInterview(interview);
+		}
+		return "result";
+	}
+
+	@GetMapping("/prev")
+	public String prev(@ModelAttribute Initiator init) {
+		if (interview != null) {
+			interview.prevState();
 			init.setInterview(interview);
 		}
 		return "result";

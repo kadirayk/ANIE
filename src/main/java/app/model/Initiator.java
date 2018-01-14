@@ -24,7 +24,7 @@ public class Initiator {
 
 	public void setInterview(Interview interview) {
 		this.interview = interview;
-		this.interviewHTML = interview.toHTML();
+		this.interviewHTML = interview.getCurrentState().toHTML();
 	}
 
 	public String getInterviewHTML() {
