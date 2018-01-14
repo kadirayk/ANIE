@@ -12,7 +12,7 @@ states:
 - name: step2
   question: What type of learning do you want to apply?
   transition:
-    back: step1
+    prev: step1
     next: step3
   uiElement:
   - '@type': Select
@@ -33,5 +33,5 @@ states:
         value: reinforcement
 - name: step3
   transition:
-    back: step2
+    prev: step2
     next: step4
