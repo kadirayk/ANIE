@@ -11,7 +11,7 @@ public class HtmlGenerator {
 		if (interview != null) {
 			html.append("<html>\n");
 			html.append("<body>\n");
-			html.append(interview.ToHTML());
+			html.append(interview.toHTML());
 			html.append("</body\n>");
 			html.append("</html>");
 		}
