@@ -9,6 +9,7 @@ import util.ListUtil;
 public class Interview {
 
 	private String context;
+	private String formRepo;
 	private List<State> states;
 	private Map<String, State> stateMap;
 	private State currentState;
@@ -19,6 +20,14 @@ public class Interview {
 
 	public void setContext(String context) {
 		this.context = context;
+	}
+
+	public String getFormRepo() {
+		return formRepo;
+	}
+
+	public void setFormRepo(String formRepo) {
+		this.formRepo = formRepo;
 	}
 
 	public State getCurrentState() {

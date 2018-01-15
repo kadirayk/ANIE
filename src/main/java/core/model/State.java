@@ -1,6 +1,5 @@
 package core.model;
 
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -8,12 +7,21 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 
 import core.model.html.HTMLConstants;
 import core.model.html.UIElement;
+import util.ListUtil;
 
 public class State {
+	private String formId;
 	private String name;
-	private String question;
 	private Map<String, String> transition;
-	private List<UIElement> uiElements;
+	private Form form;
+
+	public String getFormId() {
+		return formId;
+	}
+
+	public void setFormId(String formId) {
+		this.formId = formId;
+	}
 
 	public String getName() {
 		return name;
@@ -21,22 +29,6 @@ public class State {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
-	public List<UIElement> getUiElements() {
-		return uiElements;
-	}
-
-	public void setUiElement(List<UIElement> uiElements) {
-		this.uiElements = uiElements;
 	}
 
 	@JsonAnyGetter
@@ -49,18 +41,39 @@ public class State {
 		this.transition = transition;
 	}
 
+	public Form getForm() {
+		return form;
+	}
+
+	public void setForm(Form form) {
+		this.form = form;
+	}
+
 	public String toHTML() {
 		StringBuilder htmlElement = new StringBuilder();
 
-		if (getQuestion() != null) {
-			htmlElement.append(HTMLConstants.LINE_BREAK).append(getQuestion()).append(HTMLConstants.LINE_BREAK);
-		}
-
-		if (uiElements != null) {
-			for (UIElement e : uiElements) {
-				htmlElement.append(e.toHTML()).append(HTMLConstants.LINE_BREAK).append("\n");
+		if (form != null && ListUtil.isNotEmpty(form.getFormItems())) {
+			for (FormItem f : form.getFormItems()) {
+				String formQuestion = f.getQuestion();
+				if (formQuestion != null) {
+					htmlElement.append(HTMLConstants.LINE_BREAK).append(formQuestion).append(HTMLConstants.LINE_BREAK);
+				}
+				UIElement formUiElement = f.getUiElement();
+				if (formUiElement != null) {
+					htmlElement.append(formUiElement.toHTML()).append(HTMLConstants.LINE_BREAK).append("\n");
+				}
 			}
 		}
+
+		// if (getQuestion() != null) {
+		// htmlElement.append(HTMLConstants.LINE_BREAK).append(getQuestion()).append(HTMLConstants.LINE_BREAK);
+		// }
+		//
+		// if (uiElements != null) {
+		// for (UIElement e : uiElements) {
+		// htmlElement.append(e.toHTML()).append(HTMLConstants.LINE_BREAK).append("\n");
+		// }
+		// }
 		return htmlElement.toString();
 	}
 

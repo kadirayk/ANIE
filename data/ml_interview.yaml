@@ -1,52 +1,16 @@
 context: Machine Learning
+formRepo: data/ml_forms.yaml
 states:
-- name: step1
-  question: What is the name of your project?
+- formId: ml_form_1
+  name: step1
   transition:
     next: step2
-  uiElements:
-  - '@type': Input
-    attributes:
-      name: projectName
-      type: text
-- name: step2
-  question: What type of learning do you want to apply?
+- formId: ml_form_3
+  name: step2
   transition:
     prev: step1
     next: step3
-  uiElement:
-  - '@type': Select
-    attributes:
-      name: learningType
-    options:
-    - '@type': Option
-      content: Supervised Learning
-      attributes:
-        value: supervised
-    - '@type': Option
-      content: Unsupervised Learning
-      attributes:
-        value: unsupervised
-    - '@type': Option
-      content: Reinforcement Learning
-      attributes:
-        value: reinforcement
-  - '@type': Select
-    attributes:
-      name: learningType2
-    options:
-    - '@type': Option
-      content: Supervised Learning
-      attributes:
-        value: supervised
-    - '@type': Option
-      content: Unsupervised Learning
-      attributes:
-        value: unsupervised
-    - '@type': Option
-      content: Reinforcement Learning
-      attributes:
-        value: reinforcement
-- name: step3
+- formId: ml_form_3
+  name: step3
   transition:
     prev: step2

@@ -31,7 +31,7 @@ public class ParserTest {
 
 		// first ui element of first state is an html input element and its tpye
 		// is text
-		UIElement inputElement = interview.getStates().get(0).getUiElements().get(0);
+		UIElement inputElement = interview.getStates().get(0).getForm().getFormItems().get(0).getUiElement();
 		assertThat(inputElement, instanceOf(Input.class));
 
 		Input inputField = (Input) inputElement;
@@ -39,7 +39,7 @@ public class ParserTest {
 
 		// first ui element of second state is an html select element and its
 		// first option is option1
-		UIElement selectElement = interview.getStates().get(1).getUiElements().get(0);
+		UIElement selectElement = interview.getStates().get(1).getForm().getFormItems().get(0).getUiElement();
 		assertThat(selectElement, instanceOf(Select.class));
 
 		Select selectField = (Select) selectElement;
@@ -57,5 +57,12 @@ public class ParserTest {
 		FormCollection formCollection = parser.parseForm(filePath);
 		assertEquals(null, formCollection);
 	}
+
+	// @Test
+	// public void parseNewTest() {
+	// String filePath = "data/new_interview.yaml";
+	// Interview interview = parser.parseInterviewNew(filePath);
+	// assertEquals("Machine Learning", interview.getContext());
+	// }
 
 }

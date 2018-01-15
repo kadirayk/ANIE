@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import core.model.html.Option;
 import core.model.html.Select;
-import core.model.html.UIElement;
 
 public class StateTest {
 
@@ -21,8 +20,12 @@ public class StateTest {
 		State state = new State();
 		state.setName("step1");
 
-		List<UIElement> uiElements = new ArrayList<>();
-		state.setUiElement(uiElements);
+		Form form = new Form();
+		FormItem formItem = new FormItem();
+		List<FormItem> formItems = new ArrayList<>();
+		formItems.add(formItem);
+		form.setFormItems(formItems);
+		state.setForm(form);
 
 		Map<String, String> attributes = new HashMap<>();
 		attributes.put("name", "selectName");
@@ -39,8 +42,8 @@ public class StateTest {
 
 		Select select = new Select(null, attributes, options);
 
-		uiElements.add(select);
-		
+		formItem.setUiElement(select);
+
 		String actual = state.toHTML();
 
 		String expected = "<select name=\"selectName\">" + "\n\t<option value=\"option1\">Value1</option>"

@@ -33,3 +33,26 @@ forms:
         content: Be Rich
         attributes:
           value: rich
+- id: ml_form_3
+  formItems:
+  - question: What type of learning do you want to apply?
+    uiElement:
+      '@type': Select
+      attributes:
+        name: learningType
+      options:
+      - '@type': Option
+        content: Supervised Learning
+        attributes:
+          value: supervised
+      - '@type': Option
+        content: Unsupervised Learning
+        attributes:
+          value: unsupervised
+      - '@type': Option
+        content: Reinforcement Learning
+        attributes:
+          value: reinforcement
+- id: ml_form_4
+  formItems:
+  - question: Thank you for your input!

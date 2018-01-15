@@ -22,6 +22,7 @@ public class InterviewController {
 	@GetMapping("/init")
 	public String init(Model model) {
 		model.addAttribute(INIT_TEMPLATE, new Initiator());
+		interview = null;
 		return INIT_TEMPLATE;
 	}
 
