@@ -65,15 +65,6 @@ public class State {
 			}
 		}
 
-		// if (getQuestion() != null) {
-		// htmlElement.append(HTMLConstants.LINE_BREAK).append(getQuestion()).append(HTMLConstants.LINE_BREAK);
-		// }
-		//
-		// if (uiElements != null) {
-		// for (UIElement e : uiElements) {
-		// htmlElement.append(e.toHTML()).append(HTMLConstants.LINE_BREAK).append("\n");
-		// }
-		// }
 		return htmlElement.toString();
 	}
 

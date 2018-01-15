@@ -59,6 +59,15 @@ public class InterviewController {
 		}
 		return RESULT_TEMPLATE;
 	}
+	
+	@PostMapping("/next")
+	public String nextPost(@ModelAttribute Initiator init) {
+		if (interview != null) {
+			interview.nextState();
+			init.setInterview(interview);
+		}
+		return RESULT_TEMPLATE;
+	}
 
 	@GetMapping("/prev")
 	public String prev(@ModelAttribute Initiator init) {
