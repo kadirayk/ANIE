@@ -4,8 +4,6 @@ import java.util.Map;
 
 public class Option extends UIElement {
 
-	// private String attrValue;
-	// private String value;
 	private static final String TAG = "option";
 
 	/**
@@ -20,21 +18,5 @@ public class Option extends UIElement {
 		setContent(content);
 		setAttributes(attributes);
 	}
-
-	// public String getAttrValue() {
-	// return attrValue;
-	// }
-	//
-	// public void setAttrValue(String attrValue) {
-	// this.attrValue = attrValue;
-	// }
-	//
-	// public String getValue() {
-	// return value;
-	// }
-	//
-	// public void setValue(String value) {
-	// this.value = value;
-	// }
 
 }

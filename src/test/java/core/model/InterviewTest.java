@@ -21,11 +21,11 @@ public class InterviewTest {
 		Interview interview = parser.parseInterview(filePath);
 		String currentState = interview.getCurrentState().getName();
 
-		assertEquals(currentState, "step1");
+		assertEquals("step1", currentState);
 
 		interview.nextState();
 		currentState = interview.getCurrentState().getName();
-		assertEquals(currentState, "step2");
+		assertEquals("step2", currentState);
 
 	}
 
@@ -37,11 +37,11 @@ public class InterviewTest {
 
 		interview.nextState();
 		currentState = interview.getCurrentState().getName();
-		assertEquals(currentState, "step2");
+		assertEquals("step2", currentState);
 
 		interview.prevState();
 		currentState = interview.getCurrentState().getName();
-		assertEquals(currentState, "step1");
+		assertEquals("step1", currentState);
 
 	}
 

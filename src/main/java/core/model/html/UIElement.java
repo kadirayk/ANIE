@@ -47,8 +47,8 @@ public abstract class UIElement {
 		StringBuilder html = new StringBuilder("<");
 		html.append(tag);
 		if (attributes != null) {
-			for (String key : attributes.keySet()) {
-				html.append(" ").append(key).append("=\"").append(attributes.get(key)).append("\"");
+			for (Map.Entry<String, String> entry : attributes.entrySet()) {
+				html.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
 			}
 		}
 		html.append(">");

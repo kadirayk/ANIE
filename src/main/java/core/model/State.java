@@ -6,6 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
+import core.model.html.HTMLConstants;
 import core.model.html.UIElement;
 
 public class State {
@@ -52,13 +53,12 @@ public class State {
 		StringBuilder htmlElement = new StringBuilder();
 
 		if (getQuestion() != null) {
-			htmlElement.append("<br/>").append(getQuestion()).append("<br/>");
+			htmlElement.append(HTMLConstants.LINE_BREAK).append(getQuestion()).append(HTMLConstants.LINE_BREAK);
 		}
 
-		List<UIElement> uiElements = getUiElements();
 		if (uiElements != null) {
 			for (UIElement e : uiElements) {
-				htmlElement.append(e.toHTML()).append("<br/>").append("\n");
+				htmlElement.append(e.toHTML()).append(HTMLConstants.LINE_BREAK).append("\n");
 			}
 		}
 		return htmlElement.toString();

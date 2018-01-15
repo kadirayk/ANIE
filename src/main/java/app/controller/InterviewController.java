@@ -16,11 +16,13 @@ import core.model.Interview;
 @Controller
 public class InterviewController {
 	Interview interview;
+	private static final String INIT_TEMPLATE = "initiator";
+	private static final String RESULT_TEMPLATE = "result";
 
 	@GetMapping("/init")
 	public String init(Model model) {
-		model.addAttribute("initiator", new Initiator());
-		return "initiator";
+		model.addAttribute(INIT_TEMPLATE, new Initiator());
+		return INIT_TEMPLATE;
 	}
 
 	@PostMapping("/init")
@@ -45,7 +47,7 @@ public class InterviewController {
 			init.setInterview(interview);
 
 		}
-		return "result";
+		return RESULT_TEMPLATE;
 	}
 
 	@GetMapping("/next")
@@ -54,7 +56,7 @@ public class InterviewController {
 			interview.nextState();
 			init.setInterview(interview);
 		}
-		return "result";
+		return RESULT_TEMPLATE;
 	}
 
 	@GetMapping("/prev")
@@ -63,7 +65,7 @@ public class InterviewController {
 			interview.prevState();
 			init.setInterview(interview);
 		}
-		return "result";
+		return RESULT_TEMPLATE;
 	}
 
 }

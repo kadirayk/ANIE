@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class Select extends UIElement {
 	List<Option> options;
-	// private String name;
 	private static final String TAG = "select";
 
 	public Select() {
