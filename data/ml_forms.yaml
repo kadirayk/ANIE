@@ -1,0 +1,35 @@
+forms:
+- id: ml_form_1
+  formItems:
+  - question: What is the name of your project?
+    uiElement:
+      '@type': Input
+      attributes:
+        name: projectName
+        type: text
+- id: ml_form_2
+  formItems:
+  - question: What is the goal of your project?
+    uiElement:
+      '@type': Input
+      attributes:
+        name: projectName
+        type: text
+  - question: What is the benefit of your project?
+    uiElement:
+      '@type': Select
+      attributes:
+        name: benefit
+      options:
+      - '@type': Option
+        content: World Peace
+        attributes:
+          value: peace
+      - '@type': Option
+        content: End Hunger
+        attributes:
+          value: hunger
+      - '@type': Option
+        content: Be Rich
+        attributes:
+          value: rich

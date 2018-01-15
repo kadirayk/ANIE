@@ -5,6 +5,7 @@ import java.io.File;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import core.model.FormCollection;
 import core.model.Interview;
 
 public class Parser {
@@ -19,6 +20,18 @@ public class Parser {
 		}
 
 		return interview;
+	}
+
+	public FormCollection parseForm(String filePath) {
+		FormCollection forms = null;
+		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+		try {
+			forms = mapper.readValue(new File(filePath), FormCollection.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return forms;
+
 	}
 
 }

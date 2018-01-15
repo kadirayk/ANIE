@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import core.model.FormCollection;
 import core.model.Interview;
 import core.model.html.Input;
 import core.model.html.Select;
@@ -24,9 +25,9 @@ public class ParserTest {
 	public void parseInterviewTest() {
 		String filePath = "data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
-		assertEquals(interview.getContext(), "Machine Learning");
+		assertEquals("Machine Learning", interview.getContext());
 
-		assertEquals(interview.getStates().get(0).getName(), "step1");
+		assertEquals("step1", interview.getStates().get(0).getName());
 
 		// first ui element of first state is an html input element and its tpye
 		// is text
@@ -34,7 +35,7 @@ public class ParserTest {
 		assertThat(inputElement, instanceOf(Input.class));
 
 		Input inputField = (Input) inputElement;
-		assertEquals(inputField.getAttributes().get("type"), "text");
+		assertEquals("text", inputField.getAttributes().get("type"));
 
 		// first ui element of second state is an html select element and its
 		// first option is option1
@@ -42,9 +43,9 @@ public class ParserTest {
 		assertThat(selectElement, instanceOf(Select.class));
 
 		Select selectField = (Select) selectElement;
-		assertEquals(selectField.getOptions().get(0).getAttributes().get("value"), "supervised");
+		assertEquals("supervised", selectField.getOptions().get(0).getAttributes().get("value"));
 
-		assertEquals(selectField.getOptions().get(0).getContent(), "Supervised Learning");
+		assertEquals("Supervised Learning", selectField.getOptions().get(0).getContent());
 
 	}
 
@@ -53,6 +54,8 @@ public class ParserTest {
 		String filePath = "wrognpath";
 		Interview interview = parser.parseInterview(filePath);
 		assertEquals(null, interview);
+		FormCollection formCollection = parser.parseForm(filePath);
+		assertEquals(null, formCollection);
 	}
 
 }

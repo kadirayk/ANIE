@@ -31,6 +31,22 @@ states:
       content: Reinforcement Learning
       attributes:
         value: reinforcement
+  - '@type': Select
+    attributes:
+      name: learningType2
+    options:
+    - '@type': Option
+      content: Supervised Learning
+      attributes:
+        value: supervised
+    - '@type': Option
+      content: Unsupervised Learning
+      attributes:
+        value: unsupervised
+    - '@type': Option
+      content: Reinforcement Learning
+      attributes:
+        value: reinforcement
 - name: step3
   transition:
     prev: step2
