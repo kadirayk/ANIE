@@ -4,7 +4,8 @@ states:
 - formId: game_form_1
   name: step1
   transition:
-    next: step2
+    equals[warcraft]: step3
+    not_null: step2
 - formId: game_form_2
   name: step2
   transition:
