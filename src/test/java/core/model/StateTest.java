@@ -46,7 +46,7 @@ public class StateTest {
 
 		String actual = state.toHTML();
 
-		String expected = "<select name=\"selectName\">" + "\n\t<option value=\"option1\">Value1</option>"
+		String expected = "<select name=\"response\">" + "\n\t<option value=\"option1\">Value1</option>"
 				+ "\n\t<option value=\"option2\">Value2</option>" + "\n</select><br/>\n";
 
 		assertEquals(expected, actual);

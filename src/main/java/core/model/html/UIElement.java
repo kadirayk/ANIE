@@ -48,6 +48,9 @@ public abstract class UIElement {
 		html.append(tag);
 		if (attributes != null) {
 			for (Map.Entry<String, String> entry : attributes.entrySet()) {
+				if (entry.getKey().equals("name")) {
+					entry.setValue("response");
+				}
 				html.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
 			}
 		}

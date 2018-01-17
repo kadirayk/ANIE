@@ -7,9 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
 import app.model.Initiator;
+import core.NextStateNotFoundException;
 import core.Parser;
 import core.model.Interview;
 
@@ -27,7 +29,7 @@ public class InterviewController {
 	}
 
 	@PostMapping("/init")
-	public String initSubmit(@ModelAttribute Initiator init) {
+	public String initSubmit(@ModelAttribute Initiator init) throws NextStateNotFoundException {
 		if (StringUtils.containsIgnoreCase(init.getContent(), "machine learning", Locale.ENGLISH)
 				|| StringUtils.containsIgnoreCase(init.getContent(), " ml", Locale.ENGLISH)) {
 			String filePath = "data/ml_interview.yaml";
@@ -44,6 +46,7 @@ public class InterviewController {
 			String filePath = "data/game_interview.yaml";
 			Parser parser = new Parser();
 			interview = parser.parseInterview(filePath);
+			interview.getCurrentState().getForm().getFormItems().get(0).setAnswer(init.getContent());
 			interview.nextState();
 			init.setInterview(interview);
 
@@ -52,19 +55,22 @@ public class InterviewController {
 	}
 
 	@GetMapping("/next")
-	public String next(@ModelAttribute Initiator init) {
+	public String next(@ModelAttribute Initiator init) throws NextStateNotFoundException {
 		if (interview != null) {
 			interview.nextState();
 			init.setInterview(interview);
 		}
 		return RESULT_TEMPLATE;
 	}
-	
+
 	@PostMapping("/next")
-	public String nextPost(@ModelAttribute Initiator init) {
+	public String nextPost(@ModelAttribute Initiator init, @RequestParam String response)
+			throws NextStateNotFoundException {
 		if (interview != null) {
+			interview.getCurrentState().getForm().getFormItems().get(0).setAnswer(response);
 			interview.nextState();
 			init.setInterview(interview);
+
 		}
 		return RESULT_TEMPLATE;
 	}

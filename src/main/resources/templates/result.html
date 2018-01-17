@@ -5,10 +5,13 @@
 </head>
 <body>
 	<h1 th:text="${initiator.interview.context}">title</h1>
-	<div th:remove="tag" th:utext="${initiator.interviewHTML}"></div>
+	<form action="#" th:action="@{/next}" th:object="${initiator}"
+		method="post">
+		<div th:remove="tag" th:utext="${initiator.interviewHTML}"></div>
+		<p>
+			<input type="submit" value="Submit" />
+		</p>
+	</form>
 
-	<br />
-	<a href="/prev">prev</a> |
-	<a href="/next">next</a>
 </body>
 </html>

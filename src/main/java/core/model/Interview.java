@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import core.AnswerInterpreter;
+import core.NextStateNotFoundException;
 import util.ListUtil;
 
 public class Interview {
@@ -50,8 +52,8 @@ public class Interview {
 
 	}
 
-	public void nextState() {
-		String nextStateName = stateMap.get(currentState.getName()).getTransition().get("next");
+	public void nextState() throws NextStateNotFoundException {
+		String nextStateName = AnswerInterpreter.findNextState(currentState);
 		if (nextStateName != null) {
 			currentState = stateMap.get(nextStateName);
 		} // else there is no next step i.e. last step

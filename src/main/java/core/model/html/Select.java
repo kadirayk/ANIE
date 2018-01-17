@@ -31,8 +31,11 @@ public class Select extends UIElement {
 		StringBuilder html = new StringBuilder("<");
 		html.append(getTag());
 		if (getAttributes() != null) {
-			for (String key : getAttributes().keySet()) {
-				html.append(" ").append(key).append("=\"").append(getAttributes().get(key)).append("\"");
+			for (Map.Entry<String, String> entry : getAttributes().entrySet()) {
+				if (entry.getKey().equals("name")) {
+					entry.setValue("response");
+				}
+				html.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
 			}
 		}
 		html.append(">");

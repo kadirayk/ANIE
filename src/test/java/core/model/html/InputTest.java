@@ -17,7 +17,7 @@ public class InputTest {
 		Input input = new Input(null, attributes);
 
 		String actual = input.toHTML();
-		String expected = "<input name=\"inputName\" type=\"text\"></input>";
+		String expected = "<input name=\"response\" type=\"text\"></input>";
 
 		assertEquals(expected, actual);
 
