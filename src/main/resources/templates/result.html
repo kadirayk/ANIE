@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h1 th:text="${initiator.interview.context}">title</h1>
-	<form action="#" th:action="@{/next}" th:object="${initiator}"
+	<form action="#" th:action="@{/interview/{id}(id=${initiator.id})}" th:object="${initiator}"
 		method="post">
 		<div th:remove="tag" th:utext="${initiator.interviewHTML}"></div>
 		<p>

@@ -1,5 +1,6 @@
 package core.model.html;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,7 +12,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({ @JsonSubTypes.Type(value = Input.class, name = "Input"),
 		@JsonSubTypes.Type(value = Select.class, name = "Select"),
 		@JsonSubTypes.Type(value = Option.class, name = "Option") })
-public abstract class UIElement {
+public abstract class UIElement implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5890195807308722546L;
 	private String tag;
 	private String content;
 	private Map<String, String> attributes;

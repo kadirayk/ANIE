@@ -18,6 +18,16 @@ public class Initiator {
 
 	private String debugHTML;
 
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -32,6 +42,7 @@ public class Initiator {
 
 	public void setInterview(Interview interview) {
 		this.interview = interview;
+		this.id = interview.getId();
 		this.interviewHTML = interview.getCurrentState().toHTML();
 
 		StringBuilder htmlElement = new StringBuilder();

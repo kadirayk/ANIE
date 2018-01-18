@@ -1,5 +1,6 @@
 package core.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,13 +9,19 @@ import core.AnswerInterpreter;
 import core.NextStateNotFoundException;
 import util.ListUtil;
 
-public class Interview {
+public class Interview implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9198421035407778684L;
+	
 	private String context;
 	private String formRepo;
 	private List<State> states;
 	private Map<String, State> stateMap;
 	private State currentState;
+	private String id;
 
 	public String getContext() {
 		return context;
@@ -30,6 +37,14 @@ public class Interview {
 
 	public void setFormRepo(String formRepo) {
 		this.formRepo = formRepo;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public State getCurrentState() {

@@ -1,8 +1,14 @@
 package core.model;
 
+import java.io.Serializable;
+
 import core.model.html.UIElement;
 
-public class FormItem {
+public class FormItem implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6238821216071893403L;
 	private String question;
 	private UIElement uiElement;
 	private String answer;

@@ -1,6 +1,7 @@
 package core;
 
 import java.io.File;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -47,6 +48,8 @@ public class Parser {
 				}
 
 			}
+			String id = UUID.randomUUID().toString().replace("-", "").substring(0, 10).toUpperCase();
+			interview.setId(id);
 
 		}
 

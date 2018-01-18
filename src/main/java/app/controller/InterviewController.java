@@ -18,6 +18,7 @@ import core.Parser;
 import core.model.FormItem;
 import core.model.Interview;
 import util.ListUtil;
+import util.SerializationUtil;
 
 @Controller
 public class InterviewController {
@@ -55,19 +56,20 @@ public class InterviewController {
 			init.setInterview(interview);
 
 		}
+		SerializationUtil.write(interview);
 		return RESULT_TEMPLATE;
 	}
 
-	@GetMapping("/next")
+	@GetMapping("/interview/{id}")
 	public String next(@ModelAttribute Initiator init) throws NextStateNotFoundException {
+		interview = SerializationUtil.read(init.getId());
 		if (interview != null) {
-			interview.nextState();
 			init.setInterview(interview);
 		}
 		return RESULT_TEMPLATE;
 	}
 
-	@PostMapping("/next")
+	@PostMapping("/interview/{id}")
 	public String nextPost(@ModelAttribute Initiator init, @RequestParam String response)
 			throws NextStateNotFoundException {
 		if (interview != null) {
@@ -86,6 +88,7 @@ public class InterviewController {
 			init.setInterview(interview);
 
 		}
+		SerializationUtil.write(interview);
 		return RESULT_TEMPLATE;
 	}
 

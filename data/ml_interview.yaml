@@ -13,5 +13,7 @@ states:
 - formId: ml_form_2
   name: step3
   transition:
-    default: step1
+    default: step4
     prev: step2
+- formId: ml_form_4
+  name: step4

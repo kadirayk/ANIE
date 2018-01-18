@@ -1,5 +1,6 @@
 package core.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -9,7 +10,11 @@ import core.model.html.HTMLConstants;
 import core.model.html.UIElement;
 import util.ListUtil;
 
-public class State {
+public class State implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -849218511658141465L;
 	private String formId;
 	private String name;
 	private Map<String, String> transition;

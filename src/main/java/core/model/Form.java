@@ -1,8 +1,13 @@
 package core.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Form {
+public class Form implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5697935240571388711L;
 	private String id;
 	private List<FormItem> formItems;
 
