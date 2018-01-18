@@ -16,19 +16,19 @@ public class HtmlGeneratorTest {
 
 	@Test
 	public void generatePageTest() {
-		String filePath = "data/ml_interview.yaml";
+		String filePath = "test/data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 
-		new HtmlGenerator("data/").generatePage(interview);
+		new HtmlGenerator("test/data/").generatePage(interview);
 
 	}
 
 	@Test
 	public void testException() {
-		String filePath = "data/ml_interview.yaml";
+		String filePath = "test/data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 
-		new HtmlGenerator("data/nondir/").generatePage(interview);
+		new HtmlGenerator("test/data/nondir/").generatePage(interview);
 	}
 
 }

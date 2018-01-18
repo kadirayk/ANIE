@@ -1,5 +1,7 @@
 package app.controller;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,9 @@ import org.thymeleaf.util.StringUtils;
 import app.model.Initiator;
 import core.NextStateNotFoundException;
 import core.Parser;
+import core.model.FormItem;
 import core.model.Interview;
+import util.ListUtil;
 
 @Controller
 public class InterviewController {
@@ -67,7 +71,17 @@ public class InterviewController {
 	public String nextPost(@ModelAttribute Initiator init, @RequestParam String response)
 			throws NextStateNotFoundException {
 		if (interview != null) {
-			interview.getCurrentState().getForm().getFormItems().get(0).setAnswer(response);
+			List<String> answers = Arrays.asList(response.split(","));
+			List<FormItem> formItems = interview.getCurrentState().getForm().getFormItems();
+			if (formItems != null && ListUtil.isNotEmpty(formItems)) {
+				int i = 0;
+				for (FormItem f : formItems) {
+					if (i < answers.size()) {
+						f.setAnswer(answers.get(i));
+					}
+					i++;
+				}
+			}
 			interview.nextState();
 			init.setInterview(interview);
 

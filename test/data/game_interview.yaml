@@ -1,0 +1,15 @@
+context: Game
+formRepo: data/game_forms.yaml
+states:
+- formId: game_form_1
+  name: step1
+  transition:
+    equals[warcraft]: step3
+    not_null: step2
+    default: step1
+- formId: game_form_2
+  name: step2
+  transition:
+    prev: step1
+- formId: game_form_3
+  name: step3

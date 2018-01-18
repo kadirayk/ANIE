@@ -18,7 +18,7 @@ public class InterviewTest {
 
 	@Test
 	public void nextStateTest() throws NextStateNotFoundException {
-		String filePath = "data/ml_interview.yaml";
+		String filePath = "test/data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 		String currentState = interview.getCurrentState().getName();
 
@@ -34,7 +34,7 @@ public class InterviewTest {
 
 	@Test
 	public void prevStateTest() throws NextStateNotFoundException {
-		String filePath = "data/ml_interview.yaml";
+		String filePath = "test/data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 		String currentState = null;
 		

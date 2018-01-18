@@ -23,7 +23,7 @@ public class ParserTest {
 
 	@Test
 	public void parseInterviewTest() {
-		String filePath = "data/ml_interview.yaml";
+		String filePath = "test/data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 		assertEquals("Machine Learning", interview.getContext());
 
@@ -57,12 +57,5 @@ public class ParserTest {
 		FormCollection formCollection = parser.parseForm(filePath);
 		assertEquals(null, formCollection);
 	}
-
-	// @Test
-	// public void parseNewTest() {
-	// String filePath = "data/new_interview.yaml";
-	// Interview interview = parser.parseInterviewNew(filePath);
-	// assertEquals("Machine Learning", interview.getContext());
-	// }
 
 }

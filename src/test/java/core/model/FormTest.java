@@ -17,7 +17,7 @@ public class FormTest {
 
 	@Test
 	public void parseTest() {
-		String filePath = "data/ml_forms.yaml";
+		String filePath = "test/data/ml_forms.yaml";
 		FormCollection formCollection = parser.parseForm(filePath);
 		String firstFormId = formCollection.getForms().get(0).getId();
 

@@ -38,7 +38,7 @@ public class AnswerInterpreterTest {
 
 	@Test
 	public void findNextStateWhenFirstConditionIsTrue() throws NextStateNotFoundException {
-		String filePath = "data/game_interview.yaml";
+		String filePath = "test/data/game_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 
 		State state = interview.getStates().get(0);
@@ -54,7 +54,7 @@ public class AnswerInterpreterTest {
 
 	@Test
 	public void findNextStateWhenSecondConditionIsTrue() throws NextStateNotFoundException {
-		String filePath = "data/game_interview.yaml";
+		String filePath = "test/data/game_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 
 		State state = interview.getStates().get(0);
@@ -67,7 +67,7 @@ public class AnswerInterpreterTest {
 
 	@Test
 	public void findNextStateWhenDefaultConditionIsGiven() throws NextStateNotFoundException {
-		String filePath = "data/game_interview.yaml";
+		String filePath = "test/data/game_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 
 		State state = interview.getStates().get(0);
@@ -80,7 +80,7 @@ public class AnswerInterpreterTest {
 
 	@Test(expected = NextStateNotFoundException.class)
 	public void findNextStateWhenDefaultConditionIsNotGiven() throws NextStateNotFoundException {
-		String filePath = "data/game_interview.yaml";
+		String filePath = "test/data/game_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 
 		State state = interview.getStates().get(0);
