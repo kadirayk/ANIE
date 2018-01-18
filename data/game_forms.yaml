@@ -10,3 +10,6 @@ forms:
 - id: game_form_2
   formItems:
   - question: Loading game...
+- id: game_form_3
+  formItems:
+  - question: Loading warcraft...

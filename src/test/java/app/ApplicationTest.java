@@ -48,7 +48,7 @@ public class ApplicationTest {
 		mockMvc.perform(post("/init").param("content", "I want to play a game."))
 				.andExpect(content().string(containsString("Game")));
 
-		mockMvc.perform(post("/next").param("response", "warcraft")).andExpect(content().string(containsString("Loading game")));
+		mockMvc.perform(post("/next").param("response", "warcraft")).andExpect(content().string(containsString("Loading")));
 
 	}
 
