@@ -5,10 +5,14 @@
 </head>
 <body>
 	<h1 th:text="${initiator.interview.context}">title</h1>
-	<div th:remove="tag" th:utext="${initiator.interviewHTML}"></div>
+	<form action="#" th:action="@{/interview/{id}(id=${initiator.id})}" th:object="${initiator}"
+		method="post">
+		<div th:remove="tag" th:utext="${initiator.interviewHTML}"></div>
+		<p>
+			<input type="submit" value="Submit" />
+		</p>
+			<div th:remove="tag" th:utext="${initiator.debugHTML}"></div>
+	</form>
 
-	<br />
-	<a href="/prev">prev</a> |
-	<a href="/next">next</a>
 </body>
 </html>

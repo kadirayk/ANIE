@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import core.NextStateNotFoundException;
 import core.Parser;
 
 public class InterviewTest {
@@ -16,32 +17,36 @@ public class InterviewTest {
 	}
 
 	@Test
-	public void nextStateTest() {
-		String filePath = "data/ml_interview.yaml";
+	public void nextStateTest() throws NextStateNotFoundException {
+		String filePath = "test/data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 		String currentState = interview.getCurrentState().getName();
 
-		assertEquals(currentState, "step1");
+		assertEquals("step1", currentState);
 
+		interview.getCurrentState().getForm().getFormItems().get(0).setAnswer("input");
+		
 		interview.nextState();
 		currentState = interview.getCurrentState().getName();
-		assertEquals(currentState, "step2");
+		assertEquals("step2", currentState);
 
 	}
 
 	@Test
-	public void prevStateTest() {
-		String filePath = "data/ml_interview.yaml";
+	public void prevStateTest() throws NextStateNotFoundException {
+		String filePath = "test/data/ml_interview.yaml";
 		Interview interview = parser.parseInterview(filePath);
 		String currentState = null;
+		
+		interview.getCurrentState().getForm().getFormItems().get(0).setAnswer("input");
 
 		interview.nextState();
 		currentState = interview.getCurrentState().getName();
-		assertEquals(currentState, "step2");
+		assertEquals("step2", currentState);
 
 		interview.prevState();
 		currentState = interview.getCurrentState().getName();
-		assertEquals(currentState, "step1");
+		assertEquals("step1", currentState);
 
 	}
 
