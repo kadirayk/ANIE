@@ -32,7 +32,7 @@ public class AnswerInterpreter {
 			return false;
 		}
 
-		Rule rule = extractRule(condition);
+		Rule rule = extractRuleNew(condition);
 		if (rule != null) {
 			if (rule.getRuleType() == RuleTypeEnum.STRING) {
 				return rule.getComparator().validateString(input, rule.getValueToCompare());
@@ -49,6 +49,74 @@ public class AnswerInterpreter {
 		}
 		return false;
 	}
+	
+	
+	private static Rule extractRuleNew(String condition) {
+		if(condition==null){
+			return null;
+		}
+		
+		
+		
+		if (condition.equals(AnswerEnum.NOT_NULL.value())) {
+
+			return new Rule(AnswerEnum.NOT_NULL, null, RuleTypeEnum.STRING);
+
+		} else if (condition.startsWith(AnswerEnum.CONTAINS_ANY.value())) {
+
+			String value = getValueToCompare(condition);
+
+			return new Rule(AnswerEnum.CONTAINS_ANY, value, RuleTypeEnum.LIST);
+
+		} else if (condition.startsWith(AnswerEnum.EQUALS_ANY.value())) {
+
+			String value = getValueToCompare(condition);
+
+			return new Rule(AnswerEnum.EQUALS_ANY, value, RuleTypeEnum.LIST);
+
+		} else if (condition.startsWith(AnswerEnum.CONTAINS.value())) {
+
+			String value = getValueToCompare(condition);
+
+			return new Rule(AnswerEnum.CONTAINS, value, RuleTypeEnum.STRING);
+
+		} else if (condition.startsWith(AnswerEnum.EQUALS.value())) {
+
+			String value = getValueToCompare(condition);
+
+			return new Rule(AnswerEnum.EQUALS, value, RuleTypeEnum.STRING);
+
+		} else if (condition.startsWith(AnswerEnum.GREATER_EQUAL.value())) {
+
+			String value = getValueToCompare(condition);
+			checkForNumericValue(value);
+
+			return new Rule(AnswerEnum.GREATER_EQUAL, value, RuleTypeEnum.NUMERIC);
+
+		} else if (condition.startsWith(AnswerEnum.GREATER.value())) {
+
+			String value = getValueToCompare(condition);
+			checkForNumericValue(value);
+
+			return new Rule(AnswerEnum.GREATER, value, RuleTypeEnum.NUMERIC);
+
+		} else if (condition.startsWith(AnswerEnum.LESS_EQUAL.value())) {
+			String value = getValueToCompare(condition);
+			checkForNumericValue(value);
+
+			return new Rule(AnswerEnum.LESS_EQUAL, value, RuleTypeEnum.NUMERIC);
+
+		} else if (condition.startsWith(AnswerEnum.LESS.value())) {
+			String value = getValueToCompare(condition);
+			checkForNumericValue(value);
+
+			return new Rule(AnswerEnum.LESS, value, RuleTypeEnum.NUMERIC);
+		} else if (condition.equals(AnswerEnum.DEFAULT.value())) {
+			return new Rule(AnswerEnum.DEFAULT, null, RuleTypeEnum.STRING);
+		}
+		return null;
+	}
+	
 
 	/**
 	 * 

@@ -4,7 +4,7 @@ states:
 - formId: game_form_1
   name: step1
   transition:
-    equals[warcraft]: step3
+    '[q1=warcraft & q2=yes]': step3
     not_null: step2
     default: step1
 - formId: game_form_2
