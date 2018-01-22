@@ -5,17 +5,50 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ExpressionTree {
+public class ExpressionEvaluator {
 	Deque<Node> operatorStack;
 	Queue<Node> outputQueue;
+	Deque<Node> evaluationStack;
 
-	public ExpressionTree(String expression) {
+	public ExpressionEvaluator(String expression) {
 		operatorStack = new ArrayDeque<>();
 		outputQueue = new LinkedList<>();
-		parseExpression(expression);
+		convertToPostfix(expression);
+	}
+
+	public void postFixToString() {
 		for (Node n : outputQueue) {
 			System.out.print(n.getValue() + " ");
 		}
+		System.out.println("");
+	}
+
+	public boolean evaluateExpression() {
+		evaluationStack = new ArrayDeque<>();
+		for (Node n : outputQueue) {
+			if (n instanceof Operand) {
+				evaluationStack.push(n);
+			} else if (n instanceof Operator) {
+				Node nodeLast = evaluationStack.pop();
+				Node nodeFirst = evaluationStack.pop();
+				Node result = operate(nodeFirst, nodeLast, n);
+				evaluationStack.push(result);
+			}
+		}
+		Node node = evaluationStack.pop();
+		return Boolean.valueOf(node.getValue());
+	}
+
+	private Node operate(Node nodeFirst, Node nodeLast, Node operation) {
+		boolean evaluation = false;
+		if (operation.getValue().equals(OperatorEnum.AND.value())) {
+			evaluation = Boolean.valueOf(nodeFirst.getValue()) && Boolean.valueOf(nodeLast.getValue());
+		} else if (operation.getValue().equals(OperatorEnum.EQUAL.value())) {
+			evaluation = nodeFirst.getValue().equals(nodeLast.getValue());
+		} else if (operation.getValue().equals(OperatorEnum.OR.value())) {
+			evaluation = Boolean.valueOf(nodeFirst.getValue()) || Boolean.valueOf(nodeLast.getValue());
+		}
+		return new Operand(String.valueOf(evaluation));
 	}
 
 	/**
@@ -23,7 +56,7 @@ public class ExpressionTree {
 	 * 
 	 * @param expression
 	 */
-	private void parseExpression(String expression) {
+	private void convertToPostfix(String expression) {
 		// TODO: reduce Cognitive Complexity
 		int cursor = 0;
 		while (cursor < expression.length()) {
@@ -49,7 +82,8 @@ public class ExpressionTree {
 						&& !expression.substring(cursor, cursor + 1).equals(OperatorEnum.RIGHT_P.value())) {
 					while (!operatorStack.isEmpty()
 							&& !operatorStack.peek().getValue().equals(OperatorEnum.LEFT_P.value())
-							&& !operatorStack.peek().getValue().equals(OperatorEnum.RIGHT_P.value())) {
+							&& !operatorStack.peek().getValue().equals(OperatorEnum.RIGHT_P.value())
+							&& isHigerPrec(expression.substring(cursor, cursor + 1), operatorStack.peek().getValue())) {
 						outputQueue.add(operatorStack.pop());
 					}
 					Node operator = new Operator(expression.substring(cursor, cursor + 1));
@@ -74,6 +108,11 @@ public class ExpressionTree {
 
 		while (!operatorStack.isEmpty())
 			outputQueue.add(operatorStack.pop());
+	}
+
+	private boolean isHigerPrec(String op, String sub) {
+		return OperatorEnum.findByValue(sub).precedence() >= OperatorEnum.findByValue(op).precedence();
+
 	}
 
 }
