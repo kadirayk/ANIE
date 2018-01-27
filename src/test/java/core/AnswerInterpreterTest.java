@@ -49,7 +49,7 @@ public class AnswerInterpreterTest {
 
 		stateForMicroTest.getQuestions().get(0).setAnswer("warcraft");
 
-		String nextState = AnswerInterpreter.findNextState(interview, stateForMicroTest);
+		AnswerInterpreter.findNextState(interview, stateForMicroTest);
 
 	}
 
