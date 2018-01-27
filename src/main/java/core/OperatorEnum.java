@@ -2,7 +2,8 @@ package core;
 
 public enum OperatorEnum {
 
-	EQUAL("="), AND("&"), OR("|"), LEFT_P("("), RIGHT_P(")");
+	EQUAL("="), GREATER(">"), LESS("<"), GREATER_EQUAL(">="), LESS_EQUAL("<="), AND("&"), OR("|"), NOT("!"), LEFT_P(
+			"("), RIGHT_P(")");
 
 	private String value;
 
@@ -19,9 +20,19 @@ public enum OperatorEnum {
 		return null;
 	}
 
+	/**
+	 * Arithmetic operators has a high precedence over logic operators
+	 * 
+	 * @return
+	 */
 	public int precedence() {
 		switch (this) {
 		case EQUAL:
+		case GREATER:
+		case GREATER_EQUAL:
+		case LESS:
+		case LESS_EQUAL:
+		case NOT:
 			return 2;
 		default:
 			return 1;

@@ -2,8 +2,6 @@ package core;
 
 public abstract class Node {
 	private String value;
-	private Node left;
-	private Node right;
 
 	public Node(String value) {
 		this.value = value;
@@ -15,22 +13,6 @@ public abstract class Node {
 
 	public void setValue(String value) {
 		this.value = value;
-	}
-
-	public Node getLeft() {
-		return left;
-	}
-
-	public void setLeft(Node left) {
-		this.left = left;
-	}
-
-	public Node getRight() {
-		return right;
-	}
-
-	public void setRight(Node right) {
-		this.right = right;
 	}
 
 }
