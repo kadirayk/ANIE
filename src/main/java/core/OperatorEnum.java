@@ -32,6 +32,7 @@ public enum OperatorEnum {
 		case GREATER_EQUAL:
 		case LESS:
 		case LESS_EQUAL:
+			return 3;
 		case NOT:
 			return 2;
 		default:

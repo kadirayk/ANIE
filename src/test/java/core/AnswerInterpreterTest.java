@@ -1,20 +1,23 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import core.model.Form;
-import core.model.FormItem;
+import core.model.Interview;
+import core.model.Question;
 import core.model.State;
 
 public class AnswerInterpreterTest {
 	Parser parser;
 	State stateForMicroTest;
+	Interview interview;
 
 	@Before
 	public void init() {
@@ -22,28 +25,31 @@ public class AnswerInterpreterTest {
 		stateForMicroTest = new State();
 		Map<String, String> transitionMap = new LinkedHashMap<>();
 		stateForMicroTest.setTransition(transitionMap);
-
-		Form form = new Form();
-		List<FormItem> formItems = new ArrayList<>();
-		FormItem formItem = new FormItem();
-
-		formItems.add(formItem);
-		form.setFormItems(formItems);
-		stateForMicroTest.setForm(form);
+		stateForMicroTest.setName("step1");
+		interview = new Interview();
+		List<State> states = new ArrayList<>();
+		states.add(stateForMicroTest);
+		Set<String> questionSet = new HashSet<>();
+		questionSet.add("step1.q1");
+		interview.setQuestionSet(questionSet);
+		interview.setStates(states);
+		List<Question> questions = new ArrayList<>();
+		stateForMicroTest.setQuestions(questions);
+		Question q = new Question();
+		q.setId("q1");
+		questions.add(q);
 
 	}
 
 	@Test
 	public void test() throws NextStateNotFoundException {
-		
-		 stateForMicroTest.getTransition().clear();
-		 stateForMicroTest.getTransition().put("[q1=warcraft & q2=yes]", "step3");
-		
-		 stateForMicroTest.getForm().getFormItems().get(0).setAnswer("some input");
-		
-		 String nextState = AnswerInterpreter.findNextState(stateForMicroTest);
-		 
-		 
+
+		stateForMicroTest.getTransition().clear();
+		stateForMicroTest.getTransition().put("[q1=warcraft]", "step3");
+
+		stateForMicroTest.getQuestions().get(0).setAnswer("warcraft");
+
+		String nextState = AnswerInterpreter.findNextState(interview, stateForMicroTest);
 
 	}
 

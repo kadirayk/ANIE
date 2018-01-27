@@ -1,27 +1,31 @@
 package core;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import core.model.Form;
-import core.model.FormCollection;
 import core.model.Interview;
+import core.model.Question;
+import core.model.QuestionCollection;
 import core.model.State;
+import util.ListUtil;
 
 public class Parser {
 
-	public FormCollection parseForm(String filePath) {
-		FormCollection forms = null;
+	public QuestionCollection parseQuestion(String filePath) {
+		QuestionCollection qCollection = null;
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		try {
-			forms = mapper.readValue(new File(filePath), FormCollection.class);
+			qCollection = mapper.readValue(new File(filePath), QuestionCollection.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return forms;
+		return qCollection;
 
 	}
 
@@ -35,16 +39,30 @@ public class Parser {
 		}
 
 		if (interview != null) {
-			String formPath = interview.getFormRepo();
+			String questionPath = interview.getQuestionRepo();
 
-			FormCollection forms = parseForm(formPath);
+			QuestionCollection qCollection = parseQuestion(questionPath);
 
-			if (forms != null) {
+			Set<String> questionSet = new HashSet<>();
+			interview.setQuestionSet(questionSet);
+
+			if (qCollection != null) {
 
 				for (State s : interview.getStates()) {
-					String formId = s.getFormId();
-					Form form = forms.getFormById(formId);
-					s.setForm(form);
+					List<Question> questions = s.getQuestions();
+					if (ListUtil.isNotEmpty(questions)) {
+						for (Question q : questions) {
+							StringBuilder questionSetItem = new StringBuilder(s.getName());
+							questionSetItem.append(".").append(q.getId());
+							String qId = q.getQuestionId();
+							Question question = qCollection.getQuestionById(qId);
+							if(question!=null){
+								q.setContent(question.getContent());
+								q.setUiElement(question.getUiElement());	
+							}
+							questionSet.add(questionSetItem.toString());
+						}
+					}
 				}
 
 			}

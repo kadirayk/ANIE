@@ -1,8 +1,9 @@
 package app.model;
 
-import core.model.Form;
-import core.model.FormItem;
+import java.util.List;
+
 import core.model.Interview;
+import core.model.Question;
 import core.model.State;
 import core.model.html.HTMLConstants;
 import util.ConfUtil;
@@ -51,11 +52,11 @@ public class Initiator {
 			htmlElement.append(HTMLConstants.LINE_BREAK).append("States: ");
 			for (State state : interview.getStates()) {
 				htmlElement.append("<p>State: ").append(state.getName()).append("</p>");
-				Form form = state.getForm();
-				if (form != null && ListUtil.isNotEmpty(form.getFormItems())) {
+				List<Question> questions = state.getQuestions();
+				if (ListUtil.isNotEmpty(questions)) {
 					htmlElement.append("<ul>");
-					for (FormItem f : form.getFormItems()) {
-						htmlElement.append("<li>").append(f.getQuestion()).append(" : ").append(f.getAnswer())
+					for (Question q : questions) {
+						htmlElement.append("<li>").append(q.getContent()).append(" : ").append(q.getAnswer())
 								.append("</li>");
 					}
 					htmlElement.append("</ul>");

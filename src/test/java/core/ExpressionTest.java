@@ -48,5 +48,16 @@ public class ExpressionTest {
 		ExpressionEvaluator ev = new ExpressionEvaluator(exp);
 		assertFalse(ev.evaluateExpression());
 	}
+	
+	@Test
+	public void TestStringEquals(){
+		String exp = "a=b";
+		ExpressionEvaluator ev = new ExpressionEvaluator(exp);
+		assertFalse(ev.evaluateExpression());
+		
+		String exp2 = "a!=b";
+		ev = new ExpressionEvaluator(exp2);
+		assertTrue(ev.evaluateExpression());
+	}
 
 }

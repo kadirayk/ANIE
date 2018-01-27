@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import core.model.Interview;
+import core.model.Question;
 import core.model.Rule;
 import core.model.State;
 
@@ -14,18 +16,53 @@ public class AnswerInterpreter {
 	private AnswerInterpreter() {
 	}
 
-	public static String findNextState(State state) throws NextStateNotFoundException {
+	public static String findNextState(Interview interview, State state) throws NextStateNotFoundException {
 		Map<String, String> transition = state.getTransition();
 		for (Map.Entry<String, String> e : transition.entrySet()) {
 			String condition = e.getKey();
-			String input = state.getForm().getFormItems().get(0).getAnswer();
-			if (interprete(input, condition)) {
+			if (evaluate(interview, condition)) {
 				return e.getValue();
 			}
 		}
 		throw new NextStateNotFoundException();
 
 	}
+
+	private static boolean evaluate(Interview interview, String condition) {
+		if (condition.equals("default")) {
+			return true;
+		}
+		String content = getConditionContent(condition);
+		for (String s : interview.getQuestionSet()) {
+			if (content.contains(s)) {
+				Question q = interview.getQuestionByPath(s);
+				content = content.replace(s, q.getAnswer());
+			} else if (content.contains(s.replace(interview.getCurrentState().getName() + ".", ""))) {
+				Question q = interview.getQuestionByPath(s);
+				String answer = q.getAnswer() == null ? "null" : q.getAnswer();
+				content = content.replace(s.replace(interview.getCurrentState().getName() + ".", ""), answer);
+			}
+		}
+
+		ExpressionEvaluator ev = new ExpressionEvaluator(content);
+		boolean result = ev.evaluateExpression();
+		return result;
+
+	}
+
+	// public static String findNextState(State state) throws
+	// NextStateNotFoundException {
+	// Map<String, String> transition = state.getTransition();
+	// for (Map.Entry<String, String> e : transition.entrySet()) {
+	// String condition = e.getKey();
+	// String input = state.getQuestions().get(0).getAnswer();
+	// if (interprete(input, condition)) {
+	// return e.getValue();
+	// }
+	// }
+	// throw new NextStateNotFoundException();
+	//
+	// }
 
 	private static boolean interprete(String input, String condition) {
 		if (condition == null) {
@@ -49,65 +86,62 @@ public class AnswerInterpreter {
 		}
 		return false;
 	}
-	
-	
+
 	private static Rule extractRuleNew(String condition) {
-		if(condition==null){
+		if (condition == null) {
 			return null;
 		}
-		
-		
-		
+
 		if (condition.equals(AnswerEnum.NOT_NULL.value())) {
 
 			return new Rule(AnswerEnum.NOT_NULL, null, RuleTypeEnum.STRING);
 
 		} else if (condition.startsWith(AnswerEnum.CONTAINS_ANY.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 
 			return new Rule(AnswerEnum.CONTAINS_ANY, value, RuleTypeEnum.LIST);
 
 		} else if (condition.startsWith(AnswerEnum.EQUALS_ANY.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 
 			return new Rule(AnswerEnum.EQUALS_ANY, value, RuleTypeEnum.LIST);
 
 		} else if (condition.startsWith(AnswerEnum.CONTAINS.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 
 			return new Rule(AnswerEnum.CONTAINS, value, RuleTypeEnum.STRING);
 
 		} else if (condition.startsWith(AnswerEnum.EQUALS.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 
 			return new Rule(AnswerEnum.EQUALS, value, RuleTypeEnum.STRING);
 
 		} else if (condition.startsWith(AnswerEnum.GREATER_EQUAL.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 			checkForNumericValue(value);
 
 			return new Rule(AnswerEnum.GREATER_EQUAL, value, RuleTypeEnum.NUMERIC);
 
 		} else if (condition.startsWith(AnswerEnum.GREATER.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 			checkForNumericValue(value);
 
 			return new Rule(AnswerEnum.GREATER, value, RuleTypeEnum.NUMERIC);
 
 		} else if (condition.startsWith(AnswerEnum.LESS_EQUAL.value())) {
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 			checkForNumericValue(value);
 
 			return new Rule(AnswerEnum.LESS_EQUAL, value, RuleTypeEnum.NUMERIC);
 
 		} else if (condition.startsWith(AnswerEnum.LESS.value())) {
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 			checkForNumericValue(value);
 
 			return new Rule(AnswerEnum.LESS, value, RuleTypeEnum.NUMERIC);
@@ -116,7 +150,6 @@ public class AnswerInterpreter {
 		}
 		return null;
 	}
-	
 
 	/**
 	 * 
@@ -131,50 +164,50 @@ public class AnswerInterpreter {
 
 		} else if (condition.startsWith(AnswerEnum.CONTAINS_ANY.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 
 			return new Rule(AnswerEnum.CONTAINS_ANY, value, RuleTypeEnum.LIST);
 
 		} else if (condition.startsWith(AnswerEnum.EQUALS_ANY.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 
 			return new Rule(AnswerEnum.EQUALS_ANY, value, RuleTypeEnum.LIST);
 
 		} else if (condition.startsWith(AnswerEnum.CONTAINS.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 
 			return new Rule(AnswerEnum.CONTAINS, value, RuleTypeEnum.STRING);
 
 		} else if (condition.startsWith(AnswerEnum.EQUALS.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 
 			return new Rule(AnswerEnum.EQUALS, value, RuleTypeEnum.STRING);
 
 		} else if (condition.startsWith(AnswerEnum.GREATER_EQUAL.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 			checkForNumericValue(value);
 
 			return new Rule(AnswerEnum.GREATER_EQUAL, value, RuleTypeEnum.NUMERIC);
 
 		} else if (condition.startsWith(AnswerEnum.GREATER.value())) {
 
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 			checkForNumericValue(value);
 
 			return new Rule(AnswerEnum.GREATER, value, RuleTypeEnum.NUMERIC);
 
 		} else if (condition.startsWith(AnswerEnum.LESS_EQUAL.value())) {
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 			checkForNumericValue(value);
 
 			return new Rule(AnswerEnum.LESS_EQUAL, value, RuleTypeEnum.NUMERIC);
 
 		} else if (condition.startsWith(AnswerEnum.LESS.value())) {
-			String value = getValueToCompare(condition);
+			String value = getConditionContent(condition);
 			checkForNumericValue(value);
 
 			return new Rule(AnswerEnum.LESS, value, RuleTypeEnum.NUMERIC);
@@ -184,7 +217,7 @@ public class AnswerInterpreter {
 		return null;
 	}
 
-	private static String getValueToCompare(String condition) {
+	private static String getConditionContent(String condition) {
 		int start = getStartIndexOfValue(condition);
 		int end = getEndIndexOfValue(condition);
 		return condition.substring(start, end);

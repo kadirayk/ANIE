@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import core.AnswerInterpreter;
 import core.NextStateNotFoundException;
@@ -15,13 +16,38 @@ public class Interview implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -9198421035407778684L;
-	
+
 	private String context;
-	private String formRepo;
+	private String questionRepo;
 	private List<State> states;
 	private Map<String, State> stateMap;
 	private State currentState;
 	private String id;
+	private Set<String> questionSet;
+
+	/*
+	 * "step1.q1"
+	 */
+	public Question getQuestionByPath(String path) {
+		Question q = null;
+		if (path.contains(".")) {
+			String state = path.split("\\.")[0];
+			String question = path.split("\\.")[1];
+			State s = stateMap.get(state);
+			q = s.getQuestionById(question);
+		}
+
+		return q;
+
+	}
+
+	public Set<String> getQuestionSet() {
+		return questionSet;
+	}
+
+	public void setQuestionSet(Set<String> questionSet) {
+		this.questionSet = questionSet;
+	}
 
 	public String getContext() {
 		return context;
@@ -31,12 +57,12 @@ public class Interview implements Serializable {
 		this.context = context;
 	}
 
-	public String getFormRepo() {
-		return formRepo;
+	public String getQuestionRepo() {
+		return questionRepo;
 	}
 
-	public void setFormRepo(String formRepo) {
-		this.formRepo = formRepo;
+	public void setQuestionRepo(String questionRepo) {
+		this.questionRepo = questionRepo;
 	}
 
 	public String getId() {
@@ -68,7 +94,7 @@ public class Interview implements Serializable {
 	}
 
 	public void nextState() throws NextStateNotFoundException {
-		String nextStateName = AnswerInterpreter.findNextState(currentState);
+		String nextStateName = AnswerInterpreter.findNextState(this, currentState);
 		if (nextStateName != null) {
 			currentState = stateMap.get(nextStateName);
 		} // else there is no next step i.e. last step

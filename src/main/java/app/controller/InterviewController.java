@@ -15,8 +15,8 @@ import org.thymeleaf.util.StringUtils;
 import app.model.Initiator;
 import core.NextStateNotFoundException;
 import core.Parser;
-import core.model.FormItem;
 import core.model.Interview;
+import core.model.Question;
 import util.ListUtil;
 import util.SerializationUtil;
 
@@ -51,7 +51,7 @@ public class InterviewController {
 			String filePath = "data/game_interview.yaml";
 			Parser parser = new Parser();
 			interview = parser.parseInterview(filePath);
-			interview.getCurrentState().getForm().getFormItems().get(0).setAnswer(init.getContent());
+			interview.getCurrentState().getQuestions().get(0).setAnswer(init.getContent());
 			interview.nextState();
 			init.setInterview(interview);
 
@@ -74,12 +74,12 @@ public class InterviewController {
 			throws NextStateNotFoundException {
 		if (interview != null) {
 			List<String> answers = Arrays.asList(response.split(","));
-			List<FormItem> formItems = interview.getCurrentState().getForm().getFormItems();
-			if (formItems != null && ListUtil.isNotEmpty(formItems)) {
+			List<Question> questions = interview.getCurrentState().getQuestions();
+			if (ListUtil.isNotEmpty(questions)) {
 				int i = 0;
-				for (FormItem f : formItems) {
+				for (Question q : questions) {
 					if (i < answers.size()) {
-						f.setAnswer(answers.get(i));
+						q.setAnswer(answers.get(i));
 					}
 					i++;
 				}

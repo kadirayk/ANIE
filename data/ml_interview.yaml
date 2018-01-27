@@ -1,19 +1,28 @@
 context: Machine Learning
-formRepo: data/ml_forms.yaml
+questionRepo: data/ml_questions.yaml
 states:
-- formId: ml_form_1
-  name: step1
+- name: step1
+  questions:
+  - id: q1
+    questionId: ml_q1
   transition:
-    not_null: step2
-- formId: ml_form_3
-  name: step2
+    default: step2
+- name: step2
+  questions:
+  - id: q2
+    questionId: ml_q2
   transition:
-    prev: step1
-    not_null: step3
-- formId: ml_form_2
-  name: step3
+    default: step3
+- name: step3
+  questions:
+  - id: q3
+    questionId: ml_q2
+  - id: q4
+    questionId: ml_q3
   transition:
     default: step4
-    prev: step2
-- formId: ml_form_4
-  name: step4
+- name: step4
+  questions:
+  - id: q5
+    questionId: ml_q4
+  
