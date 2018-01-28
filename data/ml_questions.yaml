@@ -46,3 +46,11 @@ questions:
         value: reinforcement
 - id: ml_q4
   content: Thank you for your input!
+- id: ml_q5
+  content: upload training file.
+  uiElement:
+    '@type': Input
+    attributes:
+      name: trainingFile
+      type: file
+  

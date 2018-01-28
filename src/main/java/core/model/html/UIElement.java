@@ -52,9 +52,15 @@ public abstract class UIElement implements Serializable {
 		StringBuilder html = new StringBuilder("<");
 		html.append(tag);
 		if (attributes != null) {
+			boolean isFile = false;
+			if ("file".equals(attributes.get("type"))) {
+				isFile = true;
+			}
 			for (Map.Entry<String, String> entry : attributes.entrySet()) {
-				if (entry.getKey().equals("name")) {
+				if (!isFile && entry.getKey().equals("name")) {
 					entry.setValue("response");
+				} else if (isFile && entry.getKey().equals("name")) {
+					entry.setValue("file");
 				}
 				html.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
 			}

@@ -2,6 +2,8 @@ package core;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import core.model.Interview;
 import core.model.Question;
 import core.model.State;
@@ -31,9 +33,15 @@ public class AnswerInterpreter {
 		for (String s : interview.getQuestionSet()) {
 			if (content.contains(s)) {
 				Question q = interview.getQuestionByPath(s);
+				if (StringUtils.isEmpty(q.getAnswer())) {
+					return false;
+				}
 				content = content.replace(s, q.getAnswer());
 			} else if (content.contains(s.replace(interview.getCurrentState().getName() + ".", ""))) {
 				Question q = interview.getQuestionByPath(s);
+				if (StringUtils.isEmpty(q.getAnswer())) {
+					return false;
+				}
 				String answer = q.getAnswer() == null ? "null" : q.getAnswer();
 				content = content.replace(s.replace(interview.getCurrentState().getName() + ".", ""), answer);
 			}

@@ -9,20 +9,27 @@ states:
     default: step2
 - name: step2
   questions:
-  - id: q2
+  - id: q1
     questionId: ml_q2
   transition:
+    '[step1.q1=asd | q1=supervised]': step4
     default: step3
 - name: step3
   questions:
-  - id: q3
+  - id: q1
     questionId: ml_q2
-  - id: q4
+  - id: q2
     questionId: ml_q3
   transition:
     default: step4
 - name: step4
   questions:
-  - id: q5
+  - id: q1
+    questionId: ml_q5
+  transition:
+    default: step5
+- name: step5
+  questions:
+  - id: q1
     questionId: ml_q4
   
