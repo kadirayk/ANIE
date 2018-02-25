@@ -1,6 +1,7 @@
 package core.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -15,17 +16,28 @@ public class State implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -849218511658141465L;
-	private String formId;
 	private String name;
 	private Map<String, String> transition;
-	private Form form;
+	private List<Question> questions;
 
-	public String getFormId() {
-		return formId;
+	public Question getQuestionById(String id) {
+		Question question = null;
+		if (ListUtil.isNotEmpty(questions)) {
+			for (Question q : questions) {
+				if (id.equals(q.getId())) {
+					return q;
+				}
+			}
+		}
+		return question;
 	}
 
-	public void setFormId(String formId) {
-		this.formId = formId;
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
 	public String getName() {
@@ -46,24 +58,16 @@ public class State implements Serializable {
 		this.transition = transition;
 	}
 
-	public Form getForm() {
-		return form;
-	}
-
-	public void setForm(Form form) {
-		this.form = form;
-	}
-
 	public String toHTML() {
 		StringBuilder htmlElement = new StringBuilder();
 
-		if (form != null && ListUtil.isNotEmpty(form.getFormItems())) {
-			for (FormItem f : form.getFormItems()) {
-				String formQuestion = f.getQuestion();
+		if (ListUtil.isNotEmpty(questions)) {
+			for (Question q : questions) {
+				String formQuestion = q.getContent();
 				if (formQuestion != null) {
 					htmlElement.append(HTMLConstants.LINE_BREAK).append(formQuestion).append(HTMLConstants.LINE_BREAK);
 				}
-				UIElement formUiElement = f.getUiElement();
+				UIElement formUiElement = q.getUiElement();
 				if (formUiElement != null) {
 					htmlElement.append(formUiElement.toHTML()).append(HTMLConstants.LINE_BREAK).append("\n");
 				}

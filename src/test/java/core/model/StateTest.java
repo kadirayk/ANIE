@@ -20,12 +20,12 @@ public class StateTest {
 		State state = new State();
 		state.setName("step1");
 
-		Form form = new Form();
-		FormItem formItem = new FormItem();
-		List<FormItem> formItems = new ArrayList<>();
-		formItems.add(formItem);
-		form.setFormItems(formItems);
-		state.setForm(form);
+		List<Question> questions = new ArrayList<>();
+
+		state.setQuestions(questions);
+
+		Question q = new Question();
+		questions.add(q);
 
 		Map<String, String> attributes = new HashMap<>();
 		attributes.put("name", "selectName");
@@ -42,7 +42,7 @@ public class StateTest {
 
 		Select select = new Select(null, attributes, options);
 
-		formItem.setUiElement(select);
+		q.setUiElement(select);
 
 		String actual = state.toHTML();
 

@@ -1,5 +1,9 @@
 package app.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -10,13 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import app.model.Initiator;
 import core.NextStateNotFoundException;
 import core.Parser;
-import core.model.FormItem;
 import core.model.Interview;
+import core.model.Question;
 import util.ListUtil;
 import util.SerializationUtil;
 
@@ -25,6 +30,7 @@ public class InterviewController {
 	Interview interview;
 	private static final String INIT_TEMPLATE = "initiator";
 	private static final String RESULT_TEMPLATE = "result";
+	private static final String FILE_UPLOAD_DIR = "data/stored/fileupload/";
 
 	@GetMapping("/init")
 	public String init(Model model) {
@@ -51,7 +57,7 @@ public class InterviewController {
 			String filePath = "data/game_interview.yaml";
 			Parser parser = new Parser();
 			interview = parser.parseInterview(filePath);
-			interview.getCurrentState().getForm().getFormItems().get(0).setAnswer(init.getContent());
+			interview.getCurrentState().getQuestions().get(0).setAnswer(init.getContent());
 			interview.nextState();
 			init.setInterview(interview);
 
@@ -70,18 +76,47 @@ public class InterviewController {
 	}
 
 	@PostMapping("/interview/{id}")
-	public String nextPost(@ModelAttribute Initiator init, @RequestParam String response)
-			throws NextStateNotFoundException {
+	public String nextPost(@ModelAttribute Initiator init,
+			@RequestParam(required = false, name = "response") String response,
+			@RequestParam(required = false, name = "file") MultipartFile file) throws NextStateNotFoundException {
 		if (interview != null) {
-			List<String> answers = Arrays.asList(response.split(","));
-			List<FormItem> formItems = interview.getCurrentState().getForm().getFormItems();
-			if (formItems != null && ListUtil.isNotEmpty(formItems)) {
-				int i = 0;
-				for (FormItem f : formItems) {
-					if (i < answers.size()) {
-						f.setAnswer(answers.get(i));
+			if (file != null && !file.isEmpty()) {
+				try {
+
+					// Get the file and save it somewhere
+					byte[] bytes = file.getBytes();
+					Path path = Paths.get(FILE_UPLOAD_DIR + init.getId() + file.getOriginalFilename());
+					Files.write(path, bytes);
+
+					List<Question> questions = interview.getCurrentState().getQuestions();
+					if (ListUtil.isNotEmpty(questions)) {
+						int i = 0;
+						for (Question q : questions) {
+							if ("file".equals(q.getUiElement().getAttributes().get("type"))) {
+								q.setAnswer(file.getOriginalFilename());
+							}
+							i++;
+						}
 					}
-					i++;
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (response != null && !StringUtils.isEmpty(response)) {
+				List<String> answers = Arrays.asList(response.split(","));
+				List<Question> questions = interview.getCurrentState().getQuestions();
+				if (ListUtil.isNotEmpty(questions)) {
+					int i = 0;
+					for (Question q : questions) {
+						if (!"file".equals(q.getUiElement().getAttributes().get("type"))) {
+							if (i < answers.size()) {
+								q.setAnswer(answers.get(i));
+							}
+						}
+						i++;
+					}
 				}
 			}
 			interview.nextState();

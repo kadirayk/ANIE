@@ -6,9 +6,10 @@
 <body>
 	<h1 th:text="${initiator.interview.context}">title</h1>
 	<form action="#" th:action="@{/interview/{id}(id=${initiator.id})}" th:object="${initiator}"
-		method="post">
+		method="post" enctype="multipart/form-data">
 		<div th:remove="tag" th:utext="${initiator.interviewHTML}"></div>
-		<p>
+		
+		<p th:if="${initiator.showSubmit}">
 			<input type="submit" value="Submit" />
 		</p>
 			<div th:remove="tag" th:utext="${initiator.debugHTML}"></div>
